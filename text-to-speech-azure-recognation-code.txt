@@ -1,0 +1,31 @@
+ <!-- Speech SDK reference sdk. -->
+  <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+function Initialize(onComplete) {
+                  if (!!window.SpeechSDK) {
+                    onComplete(window.SpeechSDK);
+                  }
+                }
+                Initialize(async function (speechSdk) {
+                  var SpeechSDK = speechSdk;
+                  console.log(SpeechSDK);
+                });
+                var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
+                  "f534f8beb6e44bd8a9d82a95f1c9af31",
+                  "eastus"
+                );
+                speechConfig.speechSynthesisVoiceName = "ar-EG-SalmaNeural";
+                speechConfig.speechSynthesisOutputFormat = ".wav";
+
+                var player = new SpeechSDK.SpeakerAudioDestination();
+
+                var audioConfig =
+                  SpeechSDK.AudioConfig.fromSpeakerOutput(player);
+
+                var synthesizer = new SpeechSDK.SpeechSynthesizer(
+                  speechConfig,
+                  audioConfig
+                );
+
+                synthesizer.speakTextAsync(currentResponse.response, () =>
+                  synthesizer.close()
+                );

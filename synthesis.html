@@ -1,0 +1,29 @@
+
+<html lang="en">
+
+<body>
+  <button id="startSynthesisAsyncButton">Start synthesis</button>   
+  <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+
+  <script>
+    var SpeechSDK;
+   
+  var startSynthesisAsyncButton = document.getElementById("startSynthesisAsyncButton");
+
+    startSynthesisAsyncButton.addEventListener("click", function () {
+      var speechConfig = SpeechSDK.SpeechConfig.fromSubscription("f534f8beb6e44bd8a9d82a95f1c9af31", "eastus");
+      speechConfig.speechSynthesisVoiceName = "ar-EG-SalmaNeural";
+      speechConfig.speechSynthesisOutputFormat = ".wav";
+
+      var player = new SpeechSDK.SpeakerAudioDestination();
+
+      var audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
+
+      var synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+
+      synthesizer.speakTextAsync("my name is iqbal", ()=> synthesizer.close());
+
+    });
+  </script>
+</body>
+</html>
